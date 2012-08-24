@@ -1,0 +1,21 @@
+{% macro make_snippet(snippet) -%}
+<h3>{{ snippet.name }}</h3>
+
+<p>{{ snippet.description }}</p>
+
+<ul id="languageTab" class="nav nav-tabs">
+  {% for language in snippet.languages %}
+  <li {% if loop.first %}class="active"{% endif %}>
+    <a href="#{{ language }}" data-toggle="tab">{{ language }}</a>
+  </li>
+  {% endfor %}
+</ul>
+
+<div id="languageTabContent" class="tab-content">
+  {% for language in snippet.languages %}
+  <div class="tab-pane fade {% if loop.first %}in active{% endif %}" id="{{ language }}">
+    {{ snippet.languages[language] }}
+  </div>
+  {% endfor %}
+</div>
+{%- endmacro %}

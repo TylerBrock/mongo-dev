@@ -1,4 +1,7 @@
 {% extends "layout.html" %}
+
+{% from 'snippet.html' import make_snippet %}
+
 {% block content %}
 <div class="page-header">
   <h1>Mongo Snippets</h1>
@@ -15,22 +18,6 @@
   </ul>
 </div>
 <div class="span9">
-  <h3>Map Reduce</h3>
-  <p>
-  This snippet does the following stuff.
-  </p>
-  <ul id="languageTab" class="nav nav-tabs">
-    <li class="active"><a href="#shell" data-toggle="tab">Shell</a></li>
-    <li><a href="#ruby" data-toggle="tab">Ruby</a></li>
-    <li><a href="#python" data-toggle="tab">Python</a></li>
-    <li><a href="#node" data-toggle="tab">Node</a></li>
-  </ul>
-
-  <div id="languageTabContent" class="tab-content">
-    <div class="tab-pane fade in active" id="shell">
-    </div>
-    <div class="tab-pane fade" id="ruby">
-    </div>
-  </div>
+  {{ make_snippet(snippet) }}    
 </div>
 {% endblock %}
