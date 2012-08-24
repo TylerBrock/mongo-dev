@@ -22,5 +22,6 @@ def index():
     return render_template("index.html", structure=structure)
 
 if __name__ == "__main__":
+    port = int(os.environ.get('PORT', 5000))
     mongo_snippets.debug = True
-    mongo_snippets.run()
+    mongo_snippets.run(host='0.0.0.0', port=port)
