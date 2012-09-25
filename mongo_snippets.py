@@ -12,7 +12,7 @@ mongolab_uri = os.env("MONGOLAB_URI", None) or default_uri
 conn = Connection(mongolab_uri)
 db = conn['snippets']
 
-@mongo_snippets.route('/snippet/new')
+@mongo_snippets.route('/snippet')
 def new_snippet():
     pass
 
