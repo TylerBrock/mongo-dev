@@ -7,14 +7,14 @@ from pymongo import Connection
 mongo_snippets = Flask(__name__)
 
 default_uri = 'mongodb://localhost:27017/snippets'
-mongolab_uri = os.env("MONGOLAB_URI", None) or default_uri
+mongolab_uri = os.environ.get("MONGOLAB_URI", None) or default_uri
 
 conn = Connection(mongolab_uri)
 db = conn['snippets']
 
 @mongo_snippets.route('/snippet')
 def new_snippet():
-    pass
+    return render_template("create_snippet.html");
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
