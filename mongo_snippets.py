@@ -7,7 +7,7 @@ from pymongo import Connection
 mongo_snippets = Flask(__name__)
 
 default_uri = 'mongodb://localhost:27017/snippets'
-mongolab_uri = os.env("MONGOLAB_URI", None) or default_uri
+mongolab_uri = os.environ.get("MONGOLAB_URI", None) or default_uri
 
 conn = Connection(mongolab_uri)
 db = conn['mongo-snippets']
@@ -17,7 +17,7 @@ snippets = db['snippets']
 def new_snippet():
     error = None
     if request.method == 'POST':
-        snippets.insert(request.form.['snippet'])
+        snippets.insert(request.form['snippet'])
     else:
         return render_template('create_snippet.html')
 
