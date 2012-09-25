@@ -2,6 +2,7 @@ import os
 from sets import Set
 from flask import Flask
 from flask import render_template
+from pymongo import Connection
 
 mongo_snippets = Flask(__name__)
 
@@ -22,6 +23,11 @@ for category in os.listdir(SNIPPET_BASE):
 
     structure[category] = snippets
 """
+
+
+mongolab_uri = os.env("MONGOLAB_URI", None) or 'mongodb://localhost:27017/snippets'
+c = Connection(mongo_url)
+db = c['snippets']
 
 def path(dirs):
   return os.path.join(SNIPPET_BASE, *dirs)
