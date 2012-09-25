@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Mongo Snippets</h1>
+</div>
+
+
+<div class="span2">
+    <ul>
+    {% for group in groups %}
+        <li>{{group['_id']['name']}}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

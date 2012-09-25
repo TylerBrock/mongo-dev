@@ -18,6 +18,12 @@ langs = [ "C", "C#", "C++", "Java", "NodeJS",
           "MongoShell", "Perl", "PHP",
            "Python", "Ruby", "Scala", "Go"]
 
+@mongo_snippets.route('/snippet/all', methods=['GET','POST'])
+def all_snippets():
+    all_groups = [d for d in db.snippets.aggregate({"$group":{"_id":{"name":"$name"}, "langs":{"$addToSet":"$lang"}}})['result']]
+    print all_groups
+    return render_template("all_groups.html", groups=all_groups)
+
 @mongo_snippets.route('/snippet', methods=['GET','POST'])
 def new_snippet():
     error = None
