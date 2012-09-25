@@ -5,8 +5,18 @@
   <h1>Mongo Snippets</h1>
 </div>
 
+
 <div class="span2">
-    <form action="{{reverse('new_snippet')}}" method="post">
+    <form action="{{url_for('new_snippet')}}" method="post">
+        <input type="text" name="name" placeholder="Name"/>
+        <label for="language">Language
+        <select name="language">
+            {% for lang in langs %}
+                <option value="{{lang}}">{{lang}}</option>
+            {% endfor %}
+        </select>
+        </label>
+        <input type="text" name="description" placeholder="Description"/>
         <textarea name="snippet_code">
 
         </textarea>
