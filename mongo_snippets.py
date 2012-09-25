@@ -10,11 +10,16 @@ default_uri = 'mongodb://localhost:27017/snippets'
 mongolab_uri = os.env("MONGOLAB_URI", None) or default_uri
 
 conn = Connection(mongolab_uri)
-db = conn['snippets']
+db = conn['mongo-snippets']
+snippets = db['snippets']
 
 @mongo_snippets.route('/snippet')
 def new_snippet():
-    pass
+    error = None
+    if request.method == 'POST':
+        snippets.insert(request.form.['snippet'])
+    else:
+        return render_template('create_snippet.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
