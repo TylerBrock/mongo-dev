@@ -1,5 +1,3 @@
-import requests
-import json
 import settings
 from pymongo import Connection
 
@@ -9,8 +7,11 @@ snippets = db['snippets']
 users = db['users']
 
 class User:
-	def __init__(self, code):
-		pass
+    def __init__(self, data):
+        self.data = data
+
+    def save(self):
+        users.insert(self.data)
 
 class Snippet:
     pass

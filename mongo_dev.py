@@ -1,9 +1,11 @@
 import os
 import settings
+import github
 from sets import Set
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from bson import ObjectId
+from models import User
 
 mongo_dev = Flask(__name__)
 
@@ -15,7 +17,16 @@ def register():
 def link():
     code = request.args.get('code', None)
     if code:
-        return user.content
+        token = github.get_token(code)
+        if token:
+            user_data = github.get_user_data(token)
+            user = User(user_data)
+            user.save()
+            return "Saved new user"
+        else:
+            return "Could not obtain authorization token"
+    else:
+        return "User did not approve Mongo-Dev"
 
 @mongo_dev.route('/snippet/all', methods=['GET','POST'])
 def all_snippets():
