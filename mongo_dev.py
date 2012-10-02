@@ -9,6 +9,10 @@ from models import User
 
 mongo_dev = Flask(__name__)
 
+@mongo_dev.route('/')
+def index():
+    return render_template('index.html')
+
 @mongo_dev.route('/register')
 def register():
     return redirect(settings.GH_AUTHORIZE_URL)

@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% from 'snippet.html' import make_snippet %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Mongo Snippets</h1>
+</div>
+
+<div class="span2">
+  <ul class="nav nav-list well">
+    {% for category in structure %}
+      <li class="nav-header">{{ category }}</li>  
+      {% for snippet in structure[category] %}
+        <li><a href="#">{{ snippet }}</a></li>
+      {% endfor %}  
+    {% endfor %}
+  </ul>
+</div>
+<div class="span9">
+  {{ make_snippet(snippet) }}    
+</div>
+{% endblock %}
