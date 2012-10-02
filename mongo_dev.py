@@ -1,24 +1,11 @@
 import os
-import requests
-import json
 import settings
 from sets import Set
 from flask import Flask
 from flask import render_template, request, redirect, url_for
-from pymongo import Connection
 from bson import ObjectId
 
 mongo_dev = Flask(__name__)
-
-conn = Connection(settings.MONGO_URI)
-db = conn['mongo-dev']
-snippets = db['snippets']
-users = db['users']
-
-def get_user(access_token):
-    params = {"access_token": access_token}
-    user = requests.get(settings.GH_API_URL + 'user', params=params, headers=settings.ACCEPT_HEADERS)
-    return user
 
 @mongo_dev.route('/register')
 def register():
@@ -28,18 +15,6 @@ def register():
 def link():
     code = request.args.get('code', None)
     if code:
-        data = {
-            "client_id": settings.GH_CLIENT_ID,
-            "client_secret": settings.GH_CLIENT_SECRET,
-            "code": code
-        }
-        response = requests.post(
-            settings.GH_ACCESS_TOKEN_URL,
-            data=data,
-            headers=settings.ACCEPT_HEADERS
-        )
-        token = json.loads(response.text)['access_token']
-        user = get_user(token)
         return user.content
 
 @mongo_dev.route('/snippet/all', methods=['GET','POST'])
